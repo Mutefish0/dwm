@@ -131,6 +131,9 @@ const {
   glfwRawMouseMotionSupported,
   glfwSetCursorPos,
   glfwCreateCursor,
+  glfwJoystickPresent,
+  glfwGetJoystickAxes,
+  glfwGetJoystickButtons
 } = ffi;
 
 if (!glfwInit()) {
@@ -163,6 +166,7 @@ const I32_2 = new Int32Array(1);
 const I32_3 = new Int32Array(1);
 const F32_0 = new Float32Array(1);
 const F32_1 = new Float32Array(1);
+const F32_2 = new Float32Array(4);
 
 /**
  * Processes all pending events.
@@ -221,6 +225,48 @@ export function getInstanceProcAddress(
   name: string,
 ) {
   return glfwGetInstanceProcAddress(instance, cstr(name));
+}
+
+export function joystickPresent(joyStickId: number) {
+  return glfwJoystickPresent(joyStickId);
+}
+
+export function getJoystickAxes(joyStickId: number) {
+  const ptr = glfwGetJoystickAxes(joyStickId, I32_0);
+
+  const count = I32_0[0];
+
+  if (ptr !== null && count > 0) {
+    const view  = new Deno.UnsafePointerView(ptr!);
+
+    const a = Math.round(view.getFloat32(0) * 100) / 100;
+    const b = Math.round(view.getFloat32(4) * 100) / 100;
+    const c = Math.round(view.getFloat32(8) * 100) / 100;
+    const d = Math.round(view.getFloat32(12)) * 100 / 100;
+
+    return [a, b, c, d];
+  }
+
+  return [0, 0, 0, 0];
+}
+
+export function getJoystickButtons(joyStickId: number) {
+  const ptr = glfwGetJoystickButtons(joyStickId, I32_0);
+  const count = I32_0[0];
+  if (ptr !== null && count > 0) {
+
+    //const cs = Deno.UnsafePointerView.getArrayBuffer(ptr, 4 * 4);
+
+    const view  = new Deno.UnsafePointerView(ptr!);
+
+
+    // const v = new Deno.UnsafePointerView(ptr!);
+    // const cs = v.getCString();
+
+    console.log('buttons: ', view.getUint8(0), view.getUint8(1));
+
+
+  }
 }
 
 const WINDOWS = new Map<bigint, WindowGlfw>();

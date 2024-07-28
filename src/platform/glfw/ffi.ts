@@ -424,6 +424,21 @@ const symbols = {
     parameters: ["pointer", "f64", "f64"],
     result: "void",
   },
+  glfwJoystickPresent: {
+    name: "glfwJoystickPresent",
+    parameters: ["i32"],
+    result: "i32",
+  },
+  glfwGetJoystickAxes: {
+    name: "glfwGetJoystickAxes",
+    parameters: ["i32", "buffer"],
+    result: "pointer",
+  },
+  glfwGetJoystickButtons: {
+    name: 'glfwGetJoystickButtons',
+    parameters: ["i32", "buffer"],
+    result: "pointer"
+  },
 } as const;
 
 const customPath = Deno.env.get("DENO_GLFW_PATH");

@@ -26,6 +26,9 @@ const {
   Monitor,
   getMonitors,
   getPrimaryMonitor,
+  joystickPresent,
+  getJoystickAxes,
+  getJoystickButtons,
 } = platform;
 
 /**
@@ -54,5 +57,8 @@ export {
   Monitor,
   pollEvents,
   vulkanSupported,
+  joystickPresent,
+  getJoystickAxes,
+  getJoystickButtons,
   Window,
 };

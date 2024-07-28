@@ -24,6 +24,12 @@ export interface Platform {
    */
   getPrimaryMonitor(): DwmMonitor;
 
+  joystickPresent(joystickId: number): number;
+
+  getJoystickAxes(joystickId: number): number[];
+
+  getJoystickButtons(joystickId: number): void;
+
   /**
    * Poll events.
    *

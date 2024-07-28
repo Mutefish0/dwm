@@ -7,6 +7,9 @@ import {
   mainloop,
   pollEvents,
   vulkanSupported,
+  joystickPresent,
+  getJoystickAxes,
+  getJoystickButtons,
   WindowGlfw as Window,
 } from "./window.ts";
 import {
@@ -27,4 +30,7 @@ export default <Platform> {
   Monitor,
   getMonitors,
   getPrimaryMonitor,
+  joystickPresent,
+  getJoystickAxes,
+  getJoystickButtons,
 };
